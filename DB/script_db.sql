@@ -23,6 +23,11 @@ CREATE TABLE tournaments (
     tournament_end_date DATE
 );
 
+CREATE TABLE referees (
+    referee_id INT PRIMARY KEY AUTO_INCREMENT,
+    referee_name VARCHAR(255) NOT NULL
+);
+
 CREATE TABLE users (
     user_id INT PRIMARY KEY AUTO_INCREMENT,
     user_name VARCHAR(255) NOT NULL,
@@ -62,15 +67,10 @@ CREATE TABLE teams_has_matches (
     FOREIGN KEY (team_id) REFERENCES teams(team_id) ON DELETE CASCADE
 );
 
-CREATE TABLE referees (
-    referee_id INT PRIMARY KEY AUTO_INCREMENT,
-    referee_name VARCHAR(255) NOT NULL
-);
-
 CREATE TABLE matches_has_referees (
+	match_referee_id INT PRIMARY KEY AUTO_INCREMENT,
     match_id INT NOT NULL,
     referee_id INT NOT NULL,
-    PRIMARY KEY (match_id, referee_id),
     FOREIGN KEY (match_id) REFERENCES matches(match_id) ON DELETE CASCADE,
     FOREIGN KEY (referee_id) REFERENCES referees(referee_id) ON DELETE CASCADE
 );
