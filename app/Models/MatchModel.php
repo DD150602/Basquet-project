@@ -21,7 +21,29 @@ class MatchModel extends Model
   {
     $this->refereeModel = new RefereeModel();
     $this->matcheRefereeModel = new MatcheRefereeModel();
-    
+  }
+
+  public function getAllmatches()
+  {
+    return $this->select('match_id, match_date, match_hour, match_tournament_id')
+      ->where('match_state', true)
+      ->findAll();
+  }
+
+  public function getMatchById($id)
+  {
+    return $this->select('match_id, match_date, match_hour, match_tournament_id')
+      ->where('match_id', $id)
+      ->where('match_state', true)
+      ->find();
+  }
+
+  public function getMatchFromTournament($tournament_id)
+  {
+    return $this->select('match_id, match_date, match_hour, match_tournament_id')
+      ->where('match_tournament_id', $tournament_id)
+      ->where('match_state', true)
+      ->findAll();
   }
 
   public function createMatchWithReferee($data)
