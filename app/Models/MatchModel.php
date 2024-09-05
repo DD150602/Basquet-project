@@ -4,7 +4,7 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 use App\Models\RefereeModel;
-use App\Models\TeamMatchModel;
+use App\Models\MatchTeamModel;
 
 class MatchModel extends Model
 {
@@ -20,7 +20,7 @@ class MatchModel extends Model
   public function __construct()
   {
     $this->refereeModel = new RefereeModel();
-    $this->teamsMatchModel = new TeamMatchModel();
+    $this->teamsMatchModel = new MatchTeamModel();
   }
 
   public function getMatchById($id)
