@@ -8,7 +8,7 @@ class RefereeModel extends Model
 {
   protected $table = 'referees';
   protected $primaryKey = 'referee_id';
-  protected $allowedFields = ['referee_name'];
+  protected $allowedFields = ['referee_name', 'referee_state', 'referee_annotation'];
 
   public function getReferees()
   {
