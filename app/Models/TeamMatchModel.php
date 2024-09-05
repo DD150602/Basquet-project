@@ -4,10 +4,10 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class TeamMatchModel extends Model
+class MatchTeamModel extends Model
 {
-  protected $table = 'teams_has_matches';
-  protected $primaryKey = 'teams_match_id';
-  protected $allowedFields = ['team_id', 'match_id'];
+  protected $table = 'matches_has_teams';
+  protected $primaryKey = 'match_team_id';
+  protected $allowedFields = ['team_id', 'match_id', 'match_team_points', 'match_team_comments'];
   protected $returnType = 'object';
 }
