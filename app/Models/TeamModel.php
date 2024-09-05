@@ -10,18 +10,18 @@ class TeamModel extends Model
   protected $primaryKey = 'team_id';
   protected $useAutoIncrement = true;
   protected $returnType = 'object';
-  protected $allowedFields = ['team_name', 'team_total_points', 'team_state', 'team_annotation'];
+  protected $allowedFields = ['team_name', 'team_state', 'team_annotation'];
 
   public function getAllTeams()
   {
-    return $this->select('team_id, team_name, team_total_points')
+    return $this->select('team_id, team_name')
       ->where('team_state', true)
       ->findAll();
   }
 
   public function getTeamById($id)
   {
-    return $this->select('team_id, team_name, team_total_points')
+    return $this->select('team_id, team_name')
       ->where('team_id', $id)
       ->where('team_state', true)
       ->find();
