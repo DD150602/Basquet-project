@@ -6,21 +6,21 @@
 
     <nav class="nav flex-column">
       <!-- Dashboard -->
-      <a href="#" class="nav-link text-dark py-2">Dashboard</a>
+      <a href="<?php echo base_url('/admin') ?>" class="nav-link text-dark py-2">Dashboard</a>
 
       <!-- Tournaments -->
       <a href="<?php echo base_url('/admin/tournaments') ?>" class="nav-link text-dark py-2 active">Tournaments</a>
 
       <!-- Teams -->
-      <a href="#" class="nav-link text-dark py-2">Teams</a>
+      <a href="<?php echo base_url('/admin/teams') ?>" class="nav-link text-dark py-2">Teams</a>
 
       <!-- Players -->
-      <a href="#" class="nav-link text-dark py-2">Players</a>
+      <a href="<?php echo base_url('/admin/players') ?>" class="nav-link text-dark py-2">Players</a>
 
       <!-- Referees -->
-      <a href="#" class="nav-link text-dark py-2">Referees</a>
+      <a href="<?php echo base_url('/admin/referees') ?>" class="nav-link text-dark py-2">Referees</a>
 
       <!-- Settings -->
-      <a href="#" class="nav-link text-dark py-2">Settings</a>
+      <a href="<?php echo base_url('/admin/settings') ?>" class="nav-link text-dark py-2">Settings</a>
     </nav>
   </aside>
