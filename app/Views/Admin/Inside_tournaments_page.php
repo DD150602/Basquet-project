@@ -3,7 +3,12 @@
 <!-- Main Content -->
 <main class="col-md-9 col-lg-10 p-4">
   <?php echo $this->include('Templates/Components/Topbar'); ?>
-  <h2>Tournament: <span id="tournament-name">Tournament Name</span></h2>
+  <div class="d-flex justify-content-between align-items-center">
+    <h2>Tournament: <span id="tournament-name">Tournament Name</span></h2>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addMatchModal">
+      Add New Match
+    </button>
+  </div>
 
   <!-- Matches list as cards -->
   <section class="row mt-4">
@@ -29,6 +34,47 @@
     <!-- Repeat above card for each match dynamically -->
   </section>
 </main>
+
+<!-- Add Match Modal -->
+<div class="modal fade" id="addMatchModal" tabindex="-1" aria-labelledby="addMatchModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addMatchModalLabel">Add New Match</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="/match/add" method="post" id="addMatchForm">
+          <!-- Match Date -->
+          <div class="mb-3">
+            <label for="match_date" class="form-label">Match Date</label>
+            <input type="datetime-local" class="form-control" id="match_date" name="match_date" required>
+          </div>
+
+          <!-- Teams -->
+          <div class="mb-3">
+            <label for="team1" class="form-label">Team 1</label>
+            <select class="form-select" id="team1" name="team1" required>
+              <option value="">Select Team</option>
+              <!-- Options dynamically populated -->
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label for="team2" class="form-label">Team 2</label>
+            <select class="form-select" id="team2" name="team2" required>
+              <option value="">Select Team</option>
+              <!-- Options dynamically populated -->
+            </select>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Add Match</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- Edit Match Modal -->
 <div class="modal fade" id="editMatchModal" tabindex="-1" aria-labelledby="editMatchModalLabel" aria-hidden="true">
   <div class="modal-dialog">
