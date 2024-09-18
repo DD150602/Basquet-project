@@ -20,6 +20,11 @@
       <!-- Referees -->
       <a href="<?php echo base_url('/admin/referees') ?>" class="nav-link text-dark py-2">Referees</a>
 
+      <!-- Results Tracking - Solo visible si está en "Tournaments" -->
+      <?php if (service('uri')->getSegment(2) == 'tournaments'): ?>
+        <a href="<?php echo base_url('/admin/resultsTracking') ?>" class="nav-link text-dark py-2 active">Results Tracking</a>
+      <?php endif; ?>
+
       <!-- Settings -->
       <a href="<?php echo base_url('/admin/settings') ?>" class="nav-link text-dark py-2">Settings</a>
     </nav>
