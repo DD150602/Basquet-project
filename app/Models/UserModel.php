@@ -47,6 +47,37 @@ class UserModel extends Model
     $this->where('user_id', $data['user_id']);
     $this->update($data);
   }
+
+  public function login($data)
+  {
+    $user = $this->select('user_username, role_name, user_password, user_id')
+      ->join('roles', 'users.user_role_id = roles.role_id')
+      ->where('user_email', $data['user_email'])
+      ->where('user_state', true)
+      ->first();
+
+    if (!$this->validateEmail($data['user_email'])) {
+      return [
+        'login' => false,
+        'message' => 'El email no se encuentra registrado'
+      ];
+    }
+
+    if (password_verify($data['user_password'], $user->user_password)) {
+      return [
+        'user_id' => $user->user_id,
+        'user_username' => $user->user_username,
+        'user_role' => $user->role_name,
+        'login' => true
+      ];
+    } else {
+      return [
+        'login' => false,
+        'message' => 'Contraseña incorrecta'
+      ];
+    }
+  }
+
   private function validateEmail($email)
   {
     $user = $this->where('user_email', $email)
