@@ -38,7 +38,7 @@
                 <h1 class="display-4 fw-bold mb-3">Basketball Tournament Scheduler</h1>
                 <p class="lead mb-4">Organize, manage, and participate in basketball tournaments like never before. Join the ultimate platform for basketball enthusiasts.</p>
                 <div>
-                    <a href="#" class="btn btn-light btn-lg me-2">Sing Up</a>
+                    <a href="<?php echo base_url('createAcount'); ?>" class="btn btn-light btn-lg me-2">Sing Up</a>
                     <a href="<?php echo base_url('login'); ?>" class="btn btn-outline-light btn-lg">Log In</a>
                 </div>
             </div>

@@ -31,9 +31,28 @@ class UserModel extends Model
 
   public function createUser($data)
   {
+    if ($this->validateUsername($data['user_username'])) {
+      return [
+        'create' => false,
+        'message' => 'El nombre de usuario ya se encuentra registrado'
+      ];
+    }
+
+    if ($this->validateEmail($data['user_email'])) {
+      return [
+        'create' => false,
+        'message' => 'El email ya se encuentra registrado'
+      ];
+    }
+
     $hashedPassword = password_hash($data['user_password'], PASSWORD_BCRYPT, ['cost' => 10]);
     $data['user_password'] = $hashedPassword;
+    $data['user_role_id'] = 2;
     $this->insert($data);
+    return [
+      'create' => true,
+      'message' => 'Usuario creado correctamente'
+    ];
   }
 
   public function updateUser($data)
