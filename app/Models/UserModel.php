@@ -47,4 +47,29 @@ class UserModel extends Model
     $this->where('user_id', $data['user_id']);
     $this->update($data);
   }
+  private function validateEmail($email)
+  {
+    $user = $this->where('user_email', $email)
+      ->where('user_state', true)
+      ->findAll();
+
+    if ($user) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  private function validateUsername($username)
+  {
+    $user = $this->where('user_username', $username)
+      ->where('user_state', true)
+      ->findAll();
+
+    if ($user) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
