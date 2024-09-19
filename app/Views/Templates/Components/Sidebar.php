@@ -27,5 +27,11 @@
 
       <!-- Settings -->
       <a href="<?php echo base_url('/admin/settings') ?>" class="nav-link text-dark py-2">Settings</a>
+
+      <!-- Logout -->
+      <hr class="my-3"> <!-- Divider -->
+      <a href="<?php echo base_url('logout'); ?>" class="nav-link text-danger py-2">
+        <i class="fas fa-sign-out-alt"></i> Logout
+      </a>
     </nav>
   </aside>

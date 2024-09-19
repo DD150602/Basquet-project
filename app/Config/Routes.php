@@ -9,6 +9,8 @@ $routes->get('/', 'Home::index');
 
 $routes->get('/login', 'Login::index');
 $routes->post('/login-in', 'Login::login');
+$routes->get('/logout', 'Login::logout');
+
 $routes->get('/admin', 'Admin::index');
 $routes->get('/admin/tournaments', 'Admin::tournaments');
 $routes->get('/admin/tournaments/insideTournaments', 'Admin::insideTournaments');
