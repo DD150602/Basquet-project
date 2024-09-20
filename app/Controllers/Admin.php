@@ -53,7 +53,8 @@ class Admin extends BaseController
 
   public function players()
   {
-    return view('Admin/Player_page');
+    $this->data['players'] = $this->playerModel->getAllPlayers();
+    return view('Admin/Player_page', $this->data);
   }
 
   public function referees()

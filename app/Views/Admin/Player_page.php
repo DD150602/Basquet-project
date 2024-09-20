@@ -14,23 +14,28 @@
   <!-- Players list as cards -->
   <section class="row mt-4">
     <!-- Example player card -->
-    <article class="col-md-4">
-      <div class="card mb-4">
-        <div class="card-body">
-          <h5 class="card-title">Player A</h5>
-          <p class="card-text">
-            <strong>Team:</strong> Team A<br>
-            <strong>Position:</strong> Forward<br>
-            <strong>Age:</strong> 25<br>
-            <strong>Number:</strong> 9
-          </p>
-          <!-- Button to manage player modal -->
-          <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editPlayerModal" data-player-id="1">
-            Manage Player
-          </button>
-        </div>
-      </div>
-    </article>
+    <?php if (!empty($players)) : ?>
+      <?php foreach ($players as $player) : ?>
+        <article class="col-md-4">
+          <div class="card mb-4">
+            <div class="card-body">
+              <h5 class="card-title">Player A</h5>
+              <p class="card-text">
+                <strong>Team:</strong> <?php echo $player->team_name; ?><br>
+                <strong>Position:</strong> <?php echo $player->role_name; ?><br>
+                <strong>Number:</strong> <?php echo $player->player_number; ?>
+              </p>
+              <!-- Button to manage player modal -->
+              <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editPlayerModal" data-player-id="1">
+                Manage Player
+              </button>
+            </div>
+          </div>
+        </article>
+      <?php endforeach; ?>
+    <?php else : ?>
+      <p class="text-center">No players found.</p>
+    <?php endif; ?>
 
     <!-- Repeat above card for each player dynamically -->
   </section>
