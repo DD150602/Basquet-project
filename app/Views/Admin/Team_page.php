@@ -15,21 +15,27 @@
   <!-- Teams list as cards -->
   <section class="row mt-4">
     <!-- Example team card -->
-    <article class="col-md-4">
-      <div class="card mb-4">
-        <div class="card-body">
-          <h5 class="card-title">Team A</h5>
-          <p class="card-text">
-            <strong>Members:</strong> 11<br>
-            <strong>Status:</strong> Active<br>
-          </p>
-          <!-- Button to manage team modal -->
-          <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editTeamModal" data-team-id="1">
-            Manage Team
-          </button>
-        </div>
-      </div>
-    </article>
+    <?php if (!empty($teams)) : ?>
+      <?php foreach ($teams as $team) : ?>
+        <article class="col-md-4">
+          <div class="card mb-4">
+            <div class="card-body">
+              <h5 class="card-title"><?php echo $team->team_name; ?></h5>
+              <p class="card-text">
+                <strong>Members:</strong> 11<br>
+                <strong>Status:</strong> <?php echo $team->team_state; ?><br>
+              </p>
+              <!-- Button to manage team modal -->
+              <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editTeamModal" data-team-id="1">
+                Manage Team
+              </button>
+            </div>
+          </div>
+        </article>
+      <?php endforeach; ?>
+    <?php else : ?>
+      <p class="text-center">No teams found.</p>
+    <?php endif; ?>
 
     <!-- Repeat above card for each team dynamically -->
   </section>
