@@ -36,7 +36,8 @@ class Admin extends BaseController
 
   public function tournaments()
   {
-    return view('Admin/Tournaments_page');
+    $this->data['tournaments'] = $this->tournamentModel->getAllTournaments();
+    return view('Admin/Tournaments_page', $this->data);
   }
 
   public function insideTournaments()

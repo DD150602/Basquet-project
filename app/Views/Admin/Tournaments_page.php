@@ -14,27 +14,27 @@
 
   <!-- Tournaments list as cards -->
   <section class="row">
-    <!-- Example tournament card -->
-    <article class="col-md-4">
-      <div class="card mb-4">
-        <div class="card-body">
-          <h5 class="card-title">Tournament Name</h5>
-          <p class="card-text">
-            <strong>Description:</strong> Tournament Description<br>
-            <strong>Start Date:</strong> 2024-09-01<br>
-            <strong>End Date:</strong> 2024-09-30<br>
-            <strong>Status:</strong> Ongoing
-          </p>
-          <a href="<?php echo base_url('/admin/tournaments/insideTournaments'); ?>" class="btn btn-outline-primary">Go Inside the Tournament</a>
+    <?php if (!empty($tournaments)) : ?>
+      <?php foreach ($tournaments as $tournament) : ?>
+        <div class="col-md-4">
+          <div class="card mb-4">
+            <div class="card-body">
+              <h5 class="card-title"><?php echo $tournament->tournament_name; ?></h5>
+              <p class="card-text">
+                <strong>Start Date:</strong> <?php echo $tournament->tournament_start_date; ?><br>
+                <strong>End Date:</strong> <?php echo $tournament->tournament_end_date; ?><br>
+                <strong>Status:</strong> <?php echo $tournament->tournament_state; ?>
+              </p>
+              <a href="<?php echo base_url('/admin/tournaments/insideTournaments'); ?>" class="btn btn-outline-primary">Go Inside the Tournament</a>
+            </div>
+          </div>
         </div>
-      </div>
-    </article>
-
-    <!-- Repeat above card for each tournament fetched from backend -->
+      <?php endforeach; ?>  
+    <?php else : ?>
+      <p class="text-center">No tournaments found.</p>
+    <?php endif; ?>
   </section>
 </main>
-</div>
-</div>
 
 <!-- Add Tournament Modal -->
 <div class="modal fade" id="addTournamentModal" tabindex="-1" aria-labelledby="addTournamentModalLabel" aria-hidden="true">
