@@ -10,40 +10,48 @@
       <article class="col-md-6">
         <div class="card mb-4">
           <div class="card-header">
-            Card 1
+            Total Tournaments
           </div>
           <div class="card-body">
-            <p class="card-text">This is a simple card with some text inside.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+            <p class="card-text">All active tournaments: <?= $total_tournaments ?></p>
+            <a href="<?= base_url('admin/tournaments') ?>" class="btn btn-primary">View All</a>
           </div>
         </div>
       </article>
       <article class="col-md-6">
         <div class="card mb-4">
           <div class="card-header">
-            Card 2
+            Total Teams
           </div>
           <div class="card-body">
-            <p class="card-text">This is another simple card with more text inside.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+            <p class="card-text">All active teams: <?= $total_teams ?></p>
+            <a href="<?= base_url('admin/teams') ?>" class="btn btn-primary">View All</a>
+          </div>
+        </div>
+      </article>
+      <article class="col-md-6">
+        <div class="card mb-4">
+          <div class="card-header">
+            Total Players
+          </div>
+          <div class="card-body">
+            <p class="card-text">All active players: <?= $total_players ?></p>
+            <a href="<?= base_url('admin/players') ?>" class="btn btn-primary">View All</a>
+          </div>
+        </div>
+      </article>
+      <article class="col-md-6">
+        <div class="card mb-4">
+          <div class="card-header">
+            Total referees
+          </div>
+          <div class="card-body">
+            <p class="card-text">All active referees: <?= $total_referees ?></p>
+            <a href="<?= base_url('admin/referees') ?>" class="btn btn-primary">View All</a>
           </div>
         </div>
       </article>
     </div>
-
-    <article class="row">
-      <div class="col-md-12">
-        <div class="card">
-          <div class="card-header">
-            Full Width Card
-          </div>
-          <div class="card-body">
-            <p class="card-text">This card spans the full width of its parent container. You can put a lot more content here.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-          </div>
-        </div>
-      </div>
-    </article>
   </section>
 </main>
 <?php echo $this->endSection(); ?>

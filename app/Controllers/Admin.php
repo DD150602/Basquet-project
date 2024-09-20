@@ -31,7 +31,7 @@ class Admin extends BaseController
 
   public function index()
   {
-    return view('Admin/Admin_page');
+    return view('Admin/Admin_page', $this->data);
   }
 
   public function tournaments()
