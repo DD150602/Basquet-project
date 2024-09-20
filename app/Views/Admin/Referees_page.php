@@ -4,7 +4,7 @@ $this->section('content');
 ?>
 <!-- Main Content -->
 <main class="col-md-9 col-lg-10 p-4">
-<?php echo $this->include('Templates/Components/Topbar'); ?>
+  <?php echo $this->include('Templates/Components/Topbar'); ?>
   <div class="d-flex justify-content-between align-items-center">
     <h2>Referees Management</h2>
     <!-- Button to add a new referee -->
@@ -16,22 +16,26 @@ $this->section('content');
   <!-- Referees list as cards -->
   <section class="row mt-4">
     <!-- Example referee card -->
-    <article class="col-md-4">
-      <div class="card mb-4">
-        <div class="card-body">
-          <h5 class="card-title">Referee A</h5>
-          <p class="card-text">
-            <strong>Qualification:</strong> National Level<br>
-            <strong>Experience:</strong> 10 years<br>
-            <strong>Matches Officiated:</strong> 200
-          </p>
-          <!-- Button to manage referee modal -->
-          <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editRefereeModal" data-referee-id="1">
-            Manage Referee
-          </button>
-        </div>
-      </div>
-    </article>
+    <?php if (!empty($referees)) : ?>
+      <?php foreach ($referees as $referee) : ?>
+        <article class="col-md-4">
+          <div class="card mb-4">
+            <div class="card-body">
+              <h5 class="card-title"><?php echo $referee->referee_name; ?></h5>
+              <p class="card-text">
+                <strong>Matches Officiated:</strong> <?php echo $referee->matches_count; ?>
+              </p>
+              <!-- Button to manage referee modal -->
+              <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editRefereeModal" data-referee-id="1">
+                Manage Referee
+              </button>
+            </div>
+          </div>
+        </article>
+      <?php endforeach; ?>
+    <?php else : ?>
+      <p class="text-center">No referees found.</p>
+    <?php endif; ?>
 
     <!-- Repeat above card for each referee dynamically -->
   </section>

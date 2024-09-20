@@ -59,7 +59,8 @@ class Admin extends BaseController
 
   public function referees()
   {
-    return view('Admin/Referees_page');
+    $this->data['referees'] = $this->refereeModel->getAllReferees();
+    return view('Admin/Referees_page', $this->data);
   }
 
   public function calendarManagement()
