@@ -6,6 +6,7 @@ use App\Models\TournamentModel;
 use App\Models\TeamModel;
 use App\Models\PlayerModel;
 use App\Models\RefereeModel;
+use App\Models\MatchModel;
 use Config\Services;
 
 class Admin extends BaseController
@@ -14,6 +15,7 @@ class Admin extends BaseController
   protected $teamModel;
   protected $playerModel;
   protected $refereeModel;
+  protected $matchModel;
   protected $data = [];
 
   public function __construct()
@@ -22,6 +24,7 @@ class Admin extends BaseController
     $this->teamModel = new TeamModel();
     $this->playerModel = new PlayerModel();
     $this->refereeModel = new RefereeModel();
+    $this->matchModel = new MatchModel();
     $this->data['login_info'] = Services::session()->get('login_info');
     $this->data['total_tournaments'] = $this->tournamentModel->countAll();
     $this->data['total_teams'] = $this->teamModel->countAll();
@@ -40,9 +43,17 @@ class Admin extends BaseController
     return view('Admin/Tournaments_page', $this->data);
   }
 
-  public function insideTournaments()
+  public function insideTournaments($id)
   {
-    return view('Admin/Inside_tournaments_page');
+    $this->data['tournament'] = $this->tournamentModel->getTournamentById($id);
+    $this->data['matchesTournament'] = $this->matchModel->getMatchFromTournament($id);
+    return view('Admin/Inside_tournaments_page', $this->data);
+  }
+
+  public function createTournament()
+  {
+    $this->tournamentModel->createTournament($this->request->getPost());
+    return redirect()->to('/admin/tournaments');
   }
 
   public function teams()

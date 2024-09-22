@@ -4,7 +4,7 @@
 <main class="col-md-9 col-lg-10 p-4">
   <?php echo $this->include('Templates/Components/Topbar'); ?>
   <div class="d-flex justify-content-between align-items-center">
-    <h2>Tournament: <span id="tournament-name">Tournament Name</span></h2>
+    <h2>Tournament: <span id="tournament-name"><?php echo $tournament->tournament_name; ?></span></h2>
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addMatchModal">
       Add New Match
     </button>
@@ -13,25 +13,30 @@
   <!-- Matches list as cards -->
   <section class="row mt-4">
     <!-- Example match card -->
-    <article class="col-md-4">
-      <div class="card mb-4">
-        <div class="card-body">
-          <h5 class="card-title">Match 1: Team A vs Team B</h5>
-          <p class="card-text">
-            <strong>Date:</strong> 2024-09-01<br>
-            <strong>Time:</strong> 15:00<br>
-            <strong>Status:</strong> Completed<br>
-            <strong>Result:</strong> Team A 2 - 1 Team B
-          </p>
-          <!-- Button to trigger Edit Match modal -->
-          <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editMatchModal" data-match-id="1">
-            Show Details
-          </button>
-        </div>
-      </div>
-    </article>
+    <?php if (!empty($matchesTournament)) : ?>
+      <?php foreach ($matchesTournament as $match) : ?>
+        <article class="col-md-4">
+          <div class="card mb-4">
+            <div class="card-body">
+              <h5 class="card-title">Match <?php echo $match->match_id; ?>: Team A vs Team B</h5>
+              <p class="card-text">
+                <strong>Date:</strong> <?php echo $match->match_date; ?><br>
 
-    <!-- Repeat above card for each match dynamically -->
+                <strong>Time:</strong> <?php echo $match->match_hour; ?><br>
+                <strong>Result:</strong> <?php echo $match->match_description; ?>
+              </p>
+
+              <!-- Button to trigger Edit Match modal -->
+              <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editMatchModal" data-match-id="1">
+                Show Details
+              </button>
+            </div>
+          </div>
+        </article>
+      <?php endforeach; ?>
+    <?php else : ?>
+      <p class="text-center">No matches found.</p>
+    <?php endif; ?>
   </section>
 </main>
 
