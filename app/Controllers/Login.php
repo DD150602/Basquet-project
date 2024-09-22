@@ -45,7 +45,6 @@ class Login extends BaseController
       ];
 
       $login_info = $this->userModel->login($data);
-      print_r($login_info);
 
       if ($login_info['login'] && $login_info['user_role'] == 'Admin') {
         $this->session->set('login_info', $login_info);
