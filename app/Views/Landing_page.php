@@ -89,9 +89,8 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <h3 class="card-title"><?php echo $tournament->tournament_name; ?></h3>
-                                        <p class="card-text">Join our exciting summer basketball tournament!</p>
                                         <p>Date: <?php echo $tournament->tournament_start_date; ?></p>
-                                        <p>Location: <?php echo $tournament->tournament_location; ?></p>
+                                        <p>End Date: <?php echo $tournament->tournament_end_date; ?></p>
                                     </div>
                                 </div>
                             </div>
