@@ -12,16 +12,9 @@ class MatchModel extends Model
   protected $primaryKey = 'match_id';
   protected $useAutoIncrement = true;
   protected $returnType = 'object';
-  protected $allowedFields = ['match_date', 'match_hour', 'tournament_id', 'match_state', 'match_annotation', 'match_description'];
+  protected $allowedFields = ['match_id', 'match_date', 'match_hour', 'tournament_id', 'match_state', 'match_annotation', 'match_description'];
 
-  private $refereeModel;
   private $teamsMatchModel;
-
-  public function __construct()
-  {
-    $this->refereeModel = new RefereeModel();
-    $this->teamsMatchModel = new MatchTeamModel();
-  }
 
   public function getMatchById($id)
   {
@@ -46,8 +39,8 @@ class MatchModel extends Model
 
   public function assignTeamsToMatch($data)
   {
-    $db = \Config\Database::connect();
-    $db->transStart();
+    $this->teamsMatchModel = new MatchTeamModel();
+    $this->transStart();
 
     $match_id = $data['match_id'];
 
@@ -62,7 +55,7 @@ class MatchModel extends Model
       ]);
     }
 
-    $db->transComplete();
+    $this->transComplete();
   }
 
   public function updateMatch($data)
