@@ -1,5 +1,8 @@
 <?php echo $this->extend('Templates/Layout'); ?>
 <?php echo $this->section('content'); ?>
+<?php
+$session = session();
+?>
 <!-- Main Content -->
 <main class="col-md-9 col-lg-10 p-4">
   <?php echo $this->include('Templates/Components/Topbar'); ?>
@@ -9,6 +12,11 @@
       Add New Match
     </button>
   </div>
+  <?php if ($session->getFlashdata('message')): ?>
+    <div class="alert alert-danger">
+      <?php echo $session->getFlashdata('message'); ?>
+    </div>
+  <?php endif; ?>
 
   <!-- Matches list as cards -->
   <section class="row mt-4">
@@ -49,32 +57,38 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form action="/match/add" method="post" id="addMatchForm">
-          <!-- Match Date -->
-          <div class="mb-3">
-            <label for="match_date" class="form-label">Match Date</label>
-            <input type="datetime-local" class="form-control" id="match_date" name="match_date" required>
-          </div>
 
-          <!-- Teams -->
-          <div class="mb-3">
-            <label for="team1" class="form-label">Team 1</label>
-            <select class="form-select" id="team1" name="team1" required>
-              <option value="">Select Team</option>
-              <!-- Options dynamically populated -->
-            </select>
-          </div>
+        <?php
+        $attributes = ['id' => 'addMatchForm'];
+        echo form_open('/admin/tournaments/createMatch', $attributes);
+        ?>
 
-          <div class="mb-3">
-            <label for="team2" class="form-label">Team 2</label>
-            <select class="form-select" id="team2" name="team2" required>
-              <option value="">Select Team</option>
-              <!-- Options dynamically populated -->
-            </select>
-          </div>
+        <input type="hidden" name="tournament_id" value="<?php echo $tournament->tournament_id; ?>">
 
-          <button type="submit" class="btn btn-primary">Add Match</button>
-        </form>
+        <!-- Match Date -->
+        <div class="mb-3">
+          <label for="match_date" class="form-label">Match Date</label>
+          <input type="datetime-local" class="form-control" id="match_date" name="match_date" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="match_description" class="form-label">Match Description</label>
+          <textarea type="text" class="form-control" id="match_description" name="match_description" placeholder="Match Description" required></textarea>
+        </div>
+
+        <!-- Teams -->
+        <div class="mb-3">
+          <label for="referees" class="form-label">Referees</label>
+          <select class="form-select" id="referees" name="referees" required>
+            <option value="">Select Referees</option>
+            <?php foreach ($referees as $referee) : ?>
+              <option value="<?php echo $referee['referee_id']; ?>"><?php echo $referee['referee_name']; ?></option>
+            <?php endforeach; ?>
+          </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Add Match</button>
+        <?php echo form_close(); ?>
       </div>
     </div>
   </div>

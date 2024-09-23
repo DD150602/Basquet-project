@@ -12,7 +12,7 @@ class MatchModel extends Model
   protected $primaryKey = 'match_id';
   protected $useAutoIncrement = true;
   protected $returnType = 'object';
-  protected $allowedFields = ['match_id', 'match_date', 'match_hour', 'tournament_id', 'match_state', 'match_annotation', 'match_description'];
+  protected $allowedFields = ['match_id', 'match_date', 'match_hour', 'tournament_id', 'match_state', 'match_annotation', 'match_description', 'referee_id'];
 
   private $teamsMatchModel;
 

@@ -57,6 +57,26 @@ class Admin extends BaseController
     return redirect()->to('/admin/tournaments');
   }
 
+  public function createMatch()
+  {
+    $completeDate = $this->request->getPost('match_date');
+    $separatedDate = explode('T', $completeDate);
+    $date = $separatedDate[0];
+    $hour = $separatedDate[1];
+    $date = date('Y-m-d', strtotime($date));
+    $hour = date('H:i', strtotime($hour));
+    $referee_id = intval($this->request->getPost('referees'));
+    $data = [
+      'tournament_id' => intval($this->request->getPost('tournament_id')),
+      'match_date' => $date,
+      'match_hour' => $hour,
+      'match_description' => $this->request->getPost('match_description'),
+      'referee_id' => $referee_id
+    ];
+    $this->matchModel->createMatchWithReferee($data);
+    return redirect()->back()->with('message', 'Match created successfully');
+  }
+
   public function teams()
   {
     $this->data['teams'] = $this->teamModel->getAllTeams();
