@@ -23,7 +23,8 @@
               <p class="card-text">
                 <strong>Team:</strong> <?php echo $player->team_name; ?><br>
                 <strong>Position:</strong> <?php echo $player->role_name; ?><br>
-                <strong>Number:</strong> <?php echo $player->player_number; ?>
+                <strong>Number:</strong> <?php echo $player->player_number; ?><br>
+                <strong>Condition:</strong> <?php echo $player->player_condition; ?>
               </p>
               <!-- Button to manage player modal -->
               <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editPlayerModal" data-player-id="1">
@@ -49,43 +50,54 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form action="/player/add" method="post" id="addPlayerForm">
-            <!-- Player Name -->
-            <div class="mb-3">
-              <label for="player_name" class="form-label">Player Name</label>
-              <input type="text" class="form-control" id="player_name" name="player_name" required>
-            </div>
+          <?php echo form_open('/admin/createPlayer', ['id' => 'addPlayerForm']); ?>
+          <!-- Player Name -->
+          <div class="mb-3">
+            <label for="player_name" class="form-label">Player Name</label>
+            <input type="text" class="form-control" id="player_name" name="player_name" required>
+          </div>
 
-            <!-- Team -->
-            <div class="mb-3">
-              <label for="player_team" class="form-label">Team</label>
-              <select class="form-select" id="player_team" name="player_team" required>
-                <option value="team1">Team A</option>
-                <option value="team2">Team B</option>
-                <!-- Add more team options dynamically -->
-              </select>
-            </div>
+          <!-- Player Lastname -->
+          <div class="mb-3">
+            <label for="player_lastname" class="form-label">Player Lastname</label>
+            <input type="text" class="form-control" id="player_lastname" name="player_lastname" required>
+          </div>
 
-            <!-- Position -->
-            <div class="mb-3">
-              <label for="player_position" class="form-label">Position</label>
-              <input type="text" class="form-control" id="player_position" name="player_position" required>
-            </div>
+          <!-- Team -->
+          <div class="mb-3">
+            <label for="player_team" class="form-label">Team</label>
+            <select class="form-select" id="player_team" name="player_team" required>
+              <?php foreach ($teams as $team) : ?>
+                <option value="<?php echo $team->team_id; ?>"><?php echo $team->team_name; ?></option>
+              <?php endforeach; ?>
+              <!-- Add more team options dynamically -->
+            </select>
+          </div>
 
-            <!-- Age -->
-            <div class="mb-3">
-              <label for="player_age" class="form-label">Age</label>
-              <input type="number" class="form-control" id="player_age" name="player_age" required>
-            </div>
+          <!-- Position -->
+          <div class="mb-3">
+            <label for="player_position" class="form-label">Position</label>
+            <select type="text" class="form-select" id="player_position" name="player_position" required>
+              <?php foreach ($roles as $role) : ?>
+                <option value="<?php echo $role->role_id; ?>"><?php echo $role->role_name; ?></option>
+              <?php endforeach; ?>
+            </select>
+          </div>
 
-            <!-- Number -->
-            <div class="mb-3">
-              <label for="player_number" class="form-label">Number</label>
-              <input type="number" class="form-control" id="player_number" name="player_number" required>
-            </div>
+          <!-- Number -->
+          <div class="mb-3">
+            <label for="player_number" class="form-label">Number</label>
+            <input type="number" class="form-control" id="player_number" name="player_number" required>
+          </div>
 
-            <button type="submit" class="btn btn-primary">Add Player</button>
-          </form>
+          <!-- Condition -->
+          <div class="mb-3">
+            <label for="player_condition" class="form-label">Condition</label>
+            <input type="text" class="form-control" id="player_condition" name="player_condition" required>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Add Player</button>
+          <?php echo form_close(); ?>
         </div>
       </div>
     </div>

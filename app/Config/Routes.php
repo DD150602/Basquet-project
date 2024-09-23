@@ -24,6 +24,8 @@ $routes->get('/admin/teams', 'Admin::teams');
 $routes->post('/admin/createTeam', 'Admin::createTeam');
 
 $routes->get('/admin/players', 'Admin::players');
+$routes->post('/admin/createPlayer', 'Admin::createPlayer');
+
 $routes->get('/admin/referees', 'Admin::referees');
 $routes->post('/admin/createReferee', 'Admin::createReferee');
 

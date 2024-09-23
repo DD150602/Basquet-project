@@ -7,6 +7,7 @@ use App\Models\TeamModel;
 use App\Models\PlayerModel;
 use App\Models\RefereeModel;
 use App\Models\MatchModel;
+use App\Models\RoleModel;
 use Config\Services;
 
 class Admin extends BaseController
@@ -15,6 +16,7 @@ class Admin extends BaseController
   protected $teamModel;
   protected $playerModel;
   protected $refereeModel;
+  protected $roleModel;
   protected $matchModel;
   protected $data = [];
 
@@ -24,6 +26,7 @@ class Admin extends BaseController
     $this->teamModel = new TeamModel();
     $this->playerModel = new PlayerModel();
     $this->refereeModel = new RefereeModel();
+    $this->roleModel = new RoleModel();
     $this->matchModel = new MatchModel();
     $this->data['login_info'] = Services::session()->get('login_info');
     $this->data['total_tournaments'] = $this->tournamentModel->countAll();
@@ -91,8 +94,24 @@ class Admin extends BaseController
 
   public function players()
   {
+    $this->data['teams'] = $this->teamModel->getAllTeams();
+    $this->data['roles'] = $this->roleModel->getAllRoles();
     $this->data['players'] = $this->playerModel->getAllPlayers();
     return view('Admin/Player_page', $this->data);
+  }
+
+  public function createPlayer()
+  {
+    $data = [ 
+      'player_name' => $this->request->getPost('player_name'),
+      'player_lastname' => $this->request->getPost('player_lastname'),
+      'player_number' => $this->request->getPost('player_number'),
+      'player_condition' => $this->request->getPost('player_condition'),
+      'role_id' => $this->request->getPost('player_position'),
+      'team_id' => $this->request->getPost('player_team')
+    ];
+    $this->playerModel->createPlayer($data);
+    return redirect()->to('/admin/players');
   }
 
   public function referees()
