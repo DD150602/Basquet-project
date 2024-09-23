@@ -23,7 +23,7 @@
               <h5 class="card-title"><?php echo $team->team_name; ?></h5>
               <p class="card-text">
                 <strong>Members:</strong> 11<br>
-                <strong>Status:</strong> <?php echo $team->team_state; ?><br>
+                <strong>Status:</strong> <?php echo $team->team_state ? 'Active' : 'Inactive'; ?><br>
               </p>
               <!-- Button to manage team modal -->
               <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editTeamModal" data-team-id="1">
@@ -49,23 +49,15 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form action="/team/add" method="post" id="addTeamForm">
-            <!-- Team Name -->
-            <div class="mb-3">
-              <label for="team_name" class="form-label">Team Name</label>
-              <input type="text" class="form-control" id="team_name" name="team_name" required>
-            </div>
+          <?php echo form_open('/admin/createTeam', ['id' => 'addTeamForm']); ?>
+          <!-- Team Name -->
+          <div class="mb-3">
+            <label for="team_name" class="form-label">Team Name</label>
+            <input type="text" class="form-control" id="team_name" name="team_name" required>`
+          </div>
 
-            <!-- Team Status -->
-            <div class="mb-3">
-              <label for="team_status" class="form-label">Team Status</label>
-              <select class="form-select" id="team_status" name="team_status" required>
-                <option value="active">Active</option>
-                <option value="inactive">Inactive</option>
-              </select>
-            </div>
-            <button type="submit" class="btn btn-primary">Create Team</button>
-          </form>
+          <button type="submit" class="btn btn-primary">Create Team</button>
+          <?php echo form_close(); ?>
         </div>
       </div>
     </div>

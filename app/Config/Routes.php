@@ -21,6 +21,8 @@ $routes->post('/admin/tournaments/create', 'Admin::createTournament');
 $routes->post('/admin/tournaments/createMatch', 'Admin::createMatch');
 
 $routes->get('/admin/teams', 'Admin::teams');
+$routes->post('/admin/createTeam', 'Admin::createTeam');
+
 $routes->get('/admin/players', 'Admin::players');
 $routes->get('/admin/referees', 'Admin::referees');
 $routes->post('/admin/createReferee', 'Admin::createReferee');

@@ -83,6 +83,12 @@ class Admin extends BaseController
     return view('Admin/Team_page', $this->data);
   }
 
+  public function createTeam()
+  {
+    $this->teamModel->createTeam($this->request->getPost());
+    return redirect()->to('/admin/teams');
+  }
+
   public function players()
   {
     $this->data['players'] = $this->playerModel->getAllPlayers();
