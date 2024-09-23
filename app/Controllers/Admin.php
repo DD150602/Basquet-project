@@ -47,6 +47,7 @@ class Admin extends BaseController
   {
     $this->data['tournament'] = $this->tournamentModel->getTournamentById($id);
     $this->data['matchesTournament'] = $this->matchModel->getMatchFromTournament($id);
+    $this->data['referees'] = $this->refereeModel->getAllReferees();
     return view('Admin/Inside_tournaments_page', $this->data);
   }
 
@@ -72,6 +73,12 @@ class Admin extends BaseController
   {
     $this->data['referees'] = $this->refereeModel->getAllReferees();
     return view('Admin/Referees_page', $this->data);
+  }
+
+  public function createReferee()
+  {
+    $this->refereeModel->createReferee($this->request->getPost());
+    return redirect()->to('/admin/referees');
   }
 
   public function calendarManagement()

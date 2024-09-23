@@ -22,6 +22,8 @@ $routes->post('/admin/tournaments/create', 'Admin::createTournament');
 $routes->get('/admin/teams', 'Admin::teams');
 $routes->get('/admin/players', 'Admin::players');
 $routes->get('/admin/referees', 'Admin::referees');
+$routes->post('/admin/createReferee', 'Admin::createReferee');
+
 $routes->get('/admin/calendarManagement', 'Admin::calendarManagement');
 $routes->get('/admin/resultsTracking', 'Admin::resultsTracking');
 $routes->get('/monitoringTournamentsRankings', 'Home::monitoringTournamentsRankings');
