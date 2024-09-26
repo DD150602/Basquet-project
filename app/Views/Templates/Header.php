@@ -8,6 +8,7 @@
   <link href="<?php echo base_url('Resources/css/bootstrap.min.css') ?>" rel="stylesheet">
   <link href="<?php echo base_url('Resources/font/bootstrap-icons.css') ?>" rel="stylesheet">
   <link href="<?php echo base_url('Resources/css/main.css') ?>" rel="stylesheet">
+  <link href="<?php echo base_url('Resources/css/sweetalert2.min.css')?>" rel="stylesheet">
 </head>
 
 <body>

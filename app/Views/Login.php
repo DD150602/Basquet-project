@@ -10,6 +10,8 @@ $session = session();
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login</title>
   <link href="<?php echo base_url('Resources/css/bootstrap.min.css'); ?>" rel="stylesheet">
+  <link rel="stylesheet" href="<?php echo base_url('Resources/font/bootstrap-icons.min.css'); ?>">
+  <link rel="stylesheet" href="<?php echo base_url('Resources/css/sweetalert2.min.css'); ?>">
   <style>
     body {
       background-color: #f8f9fa;
@@ -98,6 +100,7 @@ $session = session();
   </div>
 
   <script src="<?php echo base_url('Resources/js/bootstrap.bundle.min.js'); ?>"></script>
+  <script src="<?php echo base_url('Resources/js/sweetalert2.all.min.js'); ?>"></script>
 </body>
 
 </html>
