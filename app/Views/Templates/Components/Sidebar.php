@@ -26,7 +26,7 @@
       <?php endif; ?>
 
       <!-- Settings -->
-      <a href="<?php echo base_url('/admin/settings') ?>" class="nav-link text-dark py-2">Settings</a>
+      <a href="<?php echo base_url('/editAccount') ?>" class="nav-link text-dark py-2">Settings</a>
 
       <!-- Logout -->
       <hr class="my-3"> <!-- Divider -->

@@ -61,6 +61,31 @@ class UserModel extends Model
     $this->update($data);
   }
 
+  public function updatePassword($data)
+  {
+    $currentPass = $this->select('user_password')->where('user_id', $data['user_id']);
+    if (!password_verify($data['old_user_password'], $currentPass->user_password)) {
+      return [
+        'check_password' => false,
+        'message' => 3
+      ];
+    }
+
+    $this->where('user_id', $data['user_id']);
+    $update = $this->update($data);
+    if ($update) {
+      return [
+        'check_password' => true,
+        'message' => 1
+      ];
+    } else {
+      return [
+        'check_password' => false,
+        'message' => 2
+      ];
+    }
+  }
+
   public function deactivateUser($data)
   {
     $this->where('user_id', $data['user_id']);

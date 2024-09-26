@@ -14,6 +14,10 @@ $routes->get('/logout', 'Login::logout');
 $routes->get('/createAcount', 'CreateAcount::index');
 $routes->post('/createAcount', 'CreateAcount::createAcount');
 
+$routes->get('/editAccount', 'Admin::editAccount');
+$routes->post('/updateAccount', 'Admin::updateAccount');
+$routes->post('/changePassword', 'Admin::changePassword');
+
 $routes->get('/admin', 'Admin::index');
 $routes->get('/admin/tournaments', 'Admin::tournaments');
 $routes->get('/admin/tournaments/insideTournaments/(:num)', 'Admin::insideTournaments/$1');

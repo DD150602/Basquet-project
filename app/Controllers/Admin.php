@@ -8,6 +8,7 @@ use App\Models\PlayerModel;
 use App\Models\RefereeModel;
 use App\Models\MatchModel;
 use App\Models\RoleModel;
+use App\Models\UserModel;
 use Config\Services;
 
 class Admin extends BaseController
@@ -18,6 +19,7 @@ class Admin extends BaseController
   protected $refereeModel;
   protected $roleModel;
   protected $matchModel;
+  protected $userModel;
   protected $data = [];
 
   public function __construct()
@@ -28,6 +30,7 @@ class Admin extends BaseController
     $this->refereeModel = new RefereeModel();
     $this->roleModel = new RoleModel();
     $this->matchModel = new MatchModel();
+    $this->userModel = new UserModel();
     $this->data['login_info'] = Services::session()->get('login_info');
     $this->data['total_tournaments'] = $this->tournamentModel->countAll();
     $this->data['total_teams'] = $this->teamModel->countAll();
@@ -102,7 +105,7 @@ class Admin extends BaseController
 
   public function createPlayer()
   {
-    $data = [ 
+    $data = [
       'player_name' => $this->request->getPost('player_name'),
       'player_lastname' => $this->request->getPost('player_lastname'),
       'player_number' => $this->request->getPost('player_number'),
@@ -128,11 +131,101 @@ class Admin extends BaseController
 
   public function calendarManagement()
   {
-    return view('Admin/Match_Calendar_Managemen_page');
+    return view('Admin/Match_Calendar_Management_page', $this->data);
   }
 
   public function resultsTracking()
   {
-    return view('Admin/Results_Tracking_page');
+    return view('Admin/Results_Tracking_page', $this->data);
+  }
+
+  public function editAccount()
+  {
+    return view('/editUserInfo', $this->data);
+  }
+
+  public function updateAccount()
+  {
+    $rules = [
+      'user_name' => [
+        'rules' => 'required',
+        'errors' => [
+          'required' => 'The name field is required'
+        ]
+      ],
+      'user_lastname' => [
+        'rules' => 'required',
+        'errors' => [
+          'required' => 'The lastname field is required'
+        ]
+      ],
+      'user_username' => [
+        'rules' => 'required|is_unique[users.user_username]',
+        'errors' => [
+          'required' => 'The username field is required',
+          'is_unique' => 'The username field must be unique'
+        ]
+      ]
+    ];
+
+    if ($this->request->getPost('user_email')) {
+      $rules['user_email'] = [
+        'rules' => 'required|valid_email|is_unique[users.user_email]',
+        'errors' => [
+          'required' => 'The email field is required',
+          'valid_email' => 'The email field must contain a valid email address'
+        ]
+      ];
+    }
+    if (!$this->validate($rules)) {
+      print_r($this->validator->getErrors());
+      return redirect()->back()->withInput();
+    } else {
+      $data = $this->request->getPost();
+      print_r($data);
+      // $this->userModel->updateAccount($data); 
+      return redirect()->back()->with('message', 'Account updated successfully');
+    }
+  }
+
+  public function changePassword()
+  {
+    $rules = [
+      'old_user_password' => [
+        'rules' => 'required',
+        'errors' => [
+          'required' => 'The old password field is required'
+        ]
+      ],
+      'user_password' => [
+        'rules' => 'required',
+        'errors' => [
+          'required' => 'The password field is required'
+        ]
+      ],
+      'confirm_password' => [
+        'rules' => 'required|matches[user_password]',
+        'errors' => [
+          'required' => 'The confirm password field is required',
+          'matches' => 'The confirm password field must match the password field'
+        ]
+      ]
+    ];
+
+    if (!$this->validate($rules)) {
+      return redirect()->to('/editAccount')->with('message', 2)->withInput();
+    } else {
+      $data = [
+        'user_id' => session('login_info')['user_id'],
+        'old_user_password' => $this->request->getPost('old_user_password'),
+        'user_password' => $this->request->getPost('user_password')
+      ];
+      $responce = $this->userModel->updatePassword($data);
+      if (!$responce['check_password']) {
+        return redirect()->to('/editAccount')->with('message', $responce['message']);
+      }
+      session()->destroy();
+      return redirect()->to('login');
+    }
   }
 }
