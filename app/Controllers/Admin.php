@@ -9,6 +9,7 @@ use App\Models\RefereeModel;
 use App\Models\MatchModel;
 use App\Models\RoleModel;
 use App\Models\UserModel;
+use App\Models\MatchTeamModel;
 use Config\Services;
 
 class Admin extends BaseController
@@ -20,6 +21,7 @@ class Admin extends BaseController
   protected $roleModel;
   protected $matchModel;
   protected $userModel;
+  protected $matchTeamModel;
   protected $data = [];
 
   public function __construct()
@@ -31,6 +33,7 @@ class Admin extends BaseController
     $this->roleModel = new RoleModel();
     $this->matchModel = new MatchModel();
     $this->userModel = new UserModel();
+    $this->matchTeamModel = new MatchTeamModel();
     $this->data['login_info'] = Services::session()->get('login_info');
     $this->data['total_tournaments'] = $this->tournamentModel->countAll();
     $this->data['total_teams'] = $this->teamModel->countAll();
@@ -83,6 +86,21 @@ class Admin extends BaseController
     return redirect()->back()->with('message', 'Match created successfully');
   }
 
+  public function editMatchView($id)
+  {
+    $this->data['match'] = $this->matchModel->getMatchById($id);
+    $this->data['teams'] = $this->teamModel->getAllTeams();
+    $this->data['teamsInMatch'] = $this->matchTeamModel->getTeamsInMatch($id);
+    $this->data['referees'] = $this->refereeModel->getAllReferees();
+    return view('Admin/Edit_match', $this->data);
+  }
+
+  public function addTeamsToMatch()
+  {
+    $data = $this->request->getPost();
+    $responce = $this->matchTeamModel->assignTeamsToMatch($data);
+    return redirect()->back()->with('message', $responce['message']);
+  }
   public function teams()
   {
     $this->data['teams'] = $this->teamModel->getAllTeams();

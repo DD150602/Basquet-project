@@ -21,6 +21,8 @@ $routes->post('/changePassword', 'Admin::changePassword');
 $routes->get('/admin', 'Admin::index');
 $routes->get('/admin/tournaments', 'Admin::tournaments');
 $routes->get('/admin/tournaments/insideTournaments/(:num)', 'Admin::insideTournaments/$1');
+$routes->get('/admin/tournaments/editMatch/(:num)', 'Admin::editMatchView/$1');
+$routes->post('/admin/tournaments/addTeamsToMatch', 'Admin::addTeamsToMatch');
 $routes->post('/admin/tournaments/create', 'Admin::createTournament');
 $routes->post('/admin/tournaments/createMatch', 'Admin::createMatch');
 
