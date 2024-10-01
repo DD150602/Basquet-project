@@ -26,9 +26,7 @@
                 <strong>Status:</strong> <?php echo $team->team_state ? 'Active' : 'Inactive'; ?><br>
               </p>
               <!-- Button to manage team modal -->
-              <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editTeamModal" data-team-id="1">
-                Manage Team
-              </button>
+              <a type="button" class="btn btn-outline-primary" href="<?php echo base_url('/admin/teams/editTeam/' . $team->team_id); ?>">Manage Team</a>
             </div>
           </div>
         </article>

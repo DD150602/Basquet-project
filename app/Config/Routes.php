@@ -28,6 +28,7 @@ $routes->post('/admin/tournaments/createMatch', 'Admin::createMatch');
 
 $routes->get('/admin/teams', 'Admin::teams');
 $routes->post('/admin/createTeam', 'Admin::createTeam');
+$routes->get('/admin/teams/editTeam/(:num)', 'Admin::editTeamView/$1');
 
 $routes->get('/admin/players', 'Admin::players');
 $routes->post('/admin/createPlayer', 'Admin::createPlayer');

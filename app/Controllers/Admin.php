@@ -113,6 +113,12 @@ class Admin extends BaseController
     return redirect()->to('/admin/teams');
   }
 
+  public function editTeamView($id)
+  {
+    $this->data['team'] = $this->teamModel->getTeamById($id);
+    return view('Admin/Edit_team', $this->data);
+  }
+
   public function players()
   {
     $this->data['teams'] = $this->teamModel->getAllTeams();
