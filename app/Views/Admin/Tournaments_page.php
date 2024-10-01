@@ -14,27 +14,27 @@
 
   <!-- Tournaments list as cards -->
   <section class="row">
-    <!-- Example tournament card -->
-    <article class="col-md-4">
-      <div class="card mb-4">
-        <div class="card-body">
-          <h5 class="card-title">Tournament Name</h5>
-          <p class="card-text">
-            <strong>Description:</strong> Tournament Description<br>
-            <strong>Start Date:</strong> 2024-09-01<br>
-            <strong>End Date:</strong> 2024-09-30<br>
-            <strong>Status:</strong> Ongoing
-          </p>
-          <a href="<?php echo base_url('/admin/tournaments/insideTournaments'); ?>" class="btn btn-outline-primary">Go Inside the Tournament</a>
+    <?php if (!empty($tournaments)) : ?>
+      <?php foreach ($tournaments as $tournament) : ?>
+        <div class="col-md-4">
+          <div class="card mb-4">
+            <div class="card-body">
+              <h5 class="card-title"><?php echo $tournament->tournament_name; ?></h5>
+              <p class="card-text">
+                <strong>Start Date:</strong> <?php echo $tournament->tournament_start_date; ?><br>
+                <strong>End Date:</strong> <?php echo $tournament->tournament_end_date; ?><br>
+                <strong>Status:</strong> <?php echo $tournament->tournament_state; ?>
+              </p>
+              <a href="<?php echo base_url('/admin/tournaments/insideTournaments/' . $tournament->tournament_id); ?>" class="btn btn-outline-primary">Go Inside the Tournament</a>
+            </div>
+          </div>
         </div>
-      </div>
-    </article>
-
-    <!-- Repeat above card for each tournament fetched from backend -->
+      <?php endforeach; ?>
+    <?php else : ?>
+      <p class="text-center">No tournaments found.</p>
+    <?php endif; ?>
   </section>
 </main>
-</div>
-</div>
 
 <!-- Add Tournament Modal -->
 <div class="modal fade" id="addTournamentModal" tabindex="-1" aria-labelledby="addTournamentModalLabel" aria-hidden="true">
@@ -45,37 +45,40 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form action="/torneo/agregar" method="post" id="addTournamentForm">
-          <!-- Tournament Name -->
-          <div class="mb-3">
-            <label for="nombre" class="form-label">Tournament Name</label>
-            <input type="text" class="form-control" id="nombre" name="nombre" required>
-          </div>
+        <?php
+        $attributes = ['class' => 'tournament_form', 'id' => 'addTournamentForm'];
+        echo form_open('admin/tournaments/create', $attributes);
+        ?>
+        <!-- Tournament Name -->
+        <div class="mb-3">
+          <label for="nombre" class="form-label">Tournament Name</label>
+          <input type="text" class="form-control" id="tournament_name" name="tournament_name" required>
+        </div>
 
-          <!-- Start Date -->
-          <div class="mb-3">
-            <label for="fecha_inicio" class="form-label">Start Date</label>
-            <input type="date" class="form-control" id="fecha_inicio" name="fecha_inicio" required>
-          </div>
+        <!-- Start Date -->
+        <div class="mb-3">
+          <label for="tournament_start_date" class="form-label">Start Date</label>
+          <input type="date" class="form-control" id="tournament_start_date" name="tournament_start_date" required>
+        </div>
 
-          <!-- End Date -->
-          <div class="mb-3">
-            <label for="fecha_fin" class="form-label">End Date</label>
-            <input type="date" class="form-control" id="fecha_fin" name="fecha_fin" required>
-          </div>
+        <!-- End Date -->
+        <div class="mb-3">
+          <label for="tournament_end_date" class="form-label">End Date</label>
+          <input type="date" class="form-control" id="tournament_end_date" name="tournament_end_date" required>
+        </div>
 
-          <!-- Tournament Status -->
-          <div class="mb-3">
-            <label for="estado" class="form-label">Tournament Status</label>
-            <select class="form-select" id="estado" name="estado" required>
-              <option value="pendiente">Pending</option>
-              <option value="en_progreso">Ongoing</option>
-              <option value="finalizado">Completed</option>
-            </select>
-          </div>
+        <!-- Tournament Status -->
+        <div class="mb-3">
+          <label for="tournament_state" class="form-label">Tournament Status</label>
+          <select class="form-select" id="tournament_state" name="tournament_state" required>
+            <option value="pendiente">Pending</option>
+            <option value="en_progreso">Ongoing</option>
+            <option value="finalizado">Completed</option>
+          </select>
+        </div>
 
-          <button type="submit" class="btn btn-primary">Add Tournament</button>
-        </form>
+        <button type="submit" class="btn btn-primary">Add Tournament</button>
+        <?php echo form_close(); ?>
       </div>
     </div>
   </div>

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>B.T.S</title>
     <link href="<?php echo base_url('Resources/css/bootstrap.min.css'); ?>" rel="stylesheet">
-    <link href="<?php echo base_url('Resources/font/bootstrap-icons.css'); ?>" rel="stylesheet">
+    <link href="<?php echo base_url('Resources/font/bootstrap-icons.min.css'); ?>" rel="stylesheet">
 </head>
 
 <body>
@@ -38,8 +38,8 @@
                 <h1 class="display-4 fw-bold mb-3">Basketball Tournament Scheduler</h1>
                 <p class="lead mb-4">Organize, manage, and participate in basketball tournaments like never before. Join the ultimate platform for basketball enthusiasts.</p>
                 <div>
-                    <a href="#" class="btn btn-light btn-lg me-2">Sing Up</a>
-                    <a href="#" class="btn btn-outline-light btn-lg">Log In</a>
+                    <a href="<?php echo base_url('createAcount'); ?>" class="btn btn-light btn-lg me-2">Sing Up</a>
+                    <a href="<?php echo base_url('login'); ?>" class="btn btn-outline-light btn-lg">Log In</a>
                 </div>
             </div>
         </section>
@@ -83,39 +83,21 @@
             <div class="container">
                 <h2 class="text-center mb-5">Upcoming Tournaments</h2>
                 <div class="row g-4">
-                    <div class="col-md-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <h3 class="card-title">Summer Slam 1</h3>
-                                <p class="card-text">Join our exciting summer basketball tournament!</p>
-                                <p>Date: July 11, 2023</p>
-                                <p>Location: City Sports Arena</p>
-                                <a href="#" class="btn btn-primary w-100">Register Now</a>
+                    <?php if (!empty($tournaments)) : ?>
+                        <?php foreach ($tournaments as $tournament) : ?>
+                            <div class="col-md-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h3 class="card-title"><?php echo $tournament->tournament_name; ?></h3>
+                                        <p>Date: <?php echo $tournament->tournament_start_date; ?></p>
+                                        <p>End Date: <?php echo $tournament->tournament_end_date; ?></p>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <h3 class="card-title">Summer Slam 2</h3>
-                                <p class="card-text">Join our exciting summer basketball tournament!</p>
-                                <p>Date: July 12, 2023</p>
-                                <p>Location: City Sports Arena</p>
-                                <a href="#" class="btn btn-primary w-100">Register Now</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <h3 class="card-title">Summer Slam 3</h3>
-                                <p class="card-text">Join our exciting summer basketball tournament!</p>
-                                <p>Date: July 13, 2023</p>
-                                <p>Location: City Sports Arena</p>
-                                <a href="#" class="btn btn-primary w-100">Register Now</a>
-                            </div>
-                        </div>
-                    </div>
+                        <?php endforeach; ?>
+                    <?php else : ?>
+                        <p class="text-center">No tournaments found.</p>
+                    <?php endif; ?>
                 </div>
             </div>
         </section>

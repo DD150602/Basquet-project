@@ -3,8 +3,6 @@
 namespace App\Models;
 
 use CodeIgniter\Model;
-use App\Models\RefereeModel;
-use App\Models\MatchTeamModel;
 
 class MatchModel extends Model
 {
@@ -12,23 +10,15 @@ class MatchModel extends Model
   protected $primaryKey = 'match_id';
   protected $useAutoIncrement = true;
   protected $returnType = 'object';
-  protected $allowedFields = ['match_date', 'match_hour', 'tournament_id', 'match_state', 'match_annotation', 'match_description'];
-
-  private $refereeModel;
-  private $teamsMatchModel;
-
-  public function __construct()
-  {
-    $this->refereeModel = new RefereeModel();
-    $this->teamsMatchModel = new MatchTeamModel();
-  }
+  protected $allowedFields = ['match_id', 'match_date', 'match_hour', 'tournament_id', 'match_state', 'match_annotation', 'match_description', 'referee_id'];
 
   public function getMatchById($id)
   {
-    return $this->select('match_id, match_date, match_hour, tournament_id, match_description')
+    return $this->select('match_id, match_date, match_hour, tournament_name, match_description')
+      ->join('tournaments', 'matches.tournament_id = tournaments.tournament_id')
       ->where('match_id', $id)
       ->where('match_state', true)
-      ->find();
+      ->first();
   }
 
   public function getMatchFromTournament($tournament_id)
@@ -42,27 +32,6 @@ class MatchModel extends Model
   public function createMatchWithReferee($data)
   {
     $this->insert($data);
-  }
-
-  public function assignTeamsToMatch($data)
-  {
-    $db = \Config\Database::connect();
-    $db->transStart();
-
-    $match_id = $data['match_id'];
-
-    foreach ($data['teamsData'] as $team) {
-      $team_id = $team['team_id'];
-
-      $this->teamsMatchModel->insert([
-        'match_team_points' => $team['match_team_points'],
-        'match_team_comments' => $team['match_team_comments'],
-        'match_id' => $match_id,
-        'team_id' => $team_id
-      ]);
-    }
-
-    $db->transComplete();
   }
 
   public function updateMatch($data)

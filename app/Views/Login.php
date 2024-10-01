@@ -1,3 +1,7 @@
+<?php
+$session = session();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,6 +10,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login</title>
   <link href="<?php echo base_url('Resources/css/bootstrap.min.css'); ?>" rel="stylesheet">
+  <link rel="stylesheet" href="<?php echo base_url('Resources/font/bootstrap-icons.min.css'); ?>">
+  <link rel="stylesheet" href="<?php echo base_url('Resources/css/sweetalert2.min.css'); ?>">
   <style>
     body {
       background-color: #f8f9fa;
@@ -60,26 +66,33 @@
 <body>
   <div class="login-container">
     <h2 class="login-title">Login</h2>
-    <form>
-      <div class="mb-3">
-        <label for="email" class="form-label">Email address</label>
-        <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+    <?php if ($session->getFlashdata('message-error')): ?>
+      <div class="alert alert-danger">
+        <?php echo $session->getFlashdata('message-error'); ?>
       </div>
-      <div class="mb-3">
-        <label for="password" class="form-label">Password</label>
-        <input type="password" class="form-control" id="password" placeholder="Enter your password" required>
+    <?php endif; ?>
+    <?php echo form_open('login-in'); ?>
+    <div class="mb-3">
+      <label for="email" class="form-label">Email address</label>
+      <input type="email" class="form-control" id="user_email" name="user_email" placeholder="Enter your email" value="<?php echo set_value('user_email'); ?>">
+      <?php echo validation_show_error('user_email'); ?>
+    </div>
+    <div class="mb-3">
+      <label for="password" class="form-label">Password</label>
+      <input type="password" class="form-control" id="user_password" name="user_password" placeholder="Enter your password" value="<?php echo set_value('user_password'); ?>">
+      <?php echo validation_show_error('user_password'); ?>
+    </div>
+    <div class="mb-3 form-check d-flex justify-content-between">
+      <div>
+        <input type="checkbox" class="form-check-input" id="rememberMe">
+        <label class="form-check-label" for="rememberMe">Remember me</label>
       </div>
-      <div class="mb-3 form-check d-flex justify-content-between">
-        <div>
-          <input type="checkbox" class="form-check-input" id="rememberMe">
-          <label class="form-check-label" for="rememberMe">Remember me</label>
-        </div>
-        <a href="#" class="forgot-password">Forgot password?</a>
-      </div>
-      <button type="submit" class="btn btn-primary">Login</button>
-    </form>
+      <a href="#" class="forgot-password">Forgot password?</a>
+    </div>
+    <button type="submit" class="btn btn-primary">Login</button>
+    <?php echo form_close(); ?>
     <div class="register mt-3">
-      <p>Don't have an account? <a href="#">Register here</a></p>
+      <p>Don't have an account? <a href="<?php echo base_url('createAcount'); ?>">Register here</a></p>
     </div>
     <div class="back-to-landing">
       <a href="<?php echo base_url(); ?>">← Back to Landing Page</a>
@@ -87,6 +100,7 @@
   </div>
 
   <script src="<?php echo base_url('Resources/js/bootstrap.bundle.min.js'); ?>"></script>
+  <script src="<?php echo base_url('Resources/js/sweetalert2.all.min.js'); ?>"></script>
 </body>
 
 </html>

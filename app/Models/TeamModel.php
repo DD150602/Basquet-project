@@ -14,7 +14,7 @@ class TeamModel extends Model
 
   public function getAllTeams()
   {
-    return $this->select('team_id, team_name')
+    return $this->select('team_id, team_name, team_state')
       ->where('team_state', true)
       ->findAll();
   }

@@ -24,7 +24,7 @@ class TournamentModel extends Model
     return $this->select('tournament_id, tournament_name, tournament_start_date, tournament_end_date, tournament_state')
       ->where('tournament_id', $id)
       ->where('tournament_canceled', false)
-      ->find();
+      ->first();
   }
 
   public function createTournament($data)

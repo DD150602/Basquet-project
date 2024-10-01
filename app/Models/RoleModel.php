@@ -14,7 +14,10 @@ class RoleModel extends Model
 
   public function getAllRoles()
   {
-    return $this->findAll();
+    return $this->select('role_id, role_name')
+      ->orderBy('role_id', 'DESC')
+      ->limit(5)
+      ->findAll();
   }
 
   public function createRole($data)
